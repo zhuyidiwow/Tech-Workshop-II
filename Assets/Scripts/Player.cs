@@ -6,17 +6,29 @@ public class Player : MonoBehaviour {
 
 	private enum EPlayerState {
 		Idle,
-		Walking
+		Walking,
+		Won,
 	}
 
 	[SerializeField] private float stoppingDistance;
 	[SerializeField] private float moveForce;
 	[SerializeField] private float maxSpeed;
+	[SerializeField] private Transform startPosition;
 
 	private EPlayerState state = EPlayerState.Idle;
 	private Vector3 destination;
 	private Rigidbody rb;
 	private Animator animator;
+
+	public void Win() {
+		TransitToWon();
+	}
+
+	public void Restart() {
+		transform.position = startPosition.position;
+		transform.rotation = Quaternion.identity;
+		TransitToIdle();
+	}
 
 	private void Start() {
 		rb = GetComponent<Rigidbody>();	
@@ -31,6 +43,8 @@ public class Player : MonoBehaviour {
 			case EPlayerState.Walking:
 				TickWalking();
 				break;
+			case EPlayerState.Won:
+				return;
 		}
 
 		if (Input.GetMouseButtonDown(1)) {
@@ -66,12 +80,12 @@ public class Player : MonoBehaviour {
 		if (Vector3.Distance(transform.position, destination) <= stoppingDistance) {
 			TransitToIdle();
 		}
-		Debug.Log(Vector3.Distance(transform.position, destination));
 	}
 
 	private void TransitToWalking(Vector3 newDestination) {
 		destination = newDestination;
 		state = EPlayerState.Walking;
+		animator.ResetTrigger("Stop");
 		animator.SetTrigger("Run");
 
 	}
@@ -79,6 +93,13 @@ public class Player : MonoBehaviour {
 	private void TransitToIdle() {
 		rb.velocity = Vector3.zero;
 		state = EPlayerState.Idle;
+		animator.ResetTrigger("Run");
+		animator.SetTrigger("Stop");
+	}
+
+	private void TransitToWon() {
+		rb.velocity = Vector3.zero;
+		state = EPlayerState.Won;
 		animator.ResetTrigger("Run");
 		animator.SetTrigger("Stop");
 	}
