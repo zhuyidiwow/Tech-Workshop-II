@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 		Idle,
 		Walking,
 		Won,
+		Dead,
 	}
 
 	[SerializeField] private float stoppingDistance;
@@ -20,6 +21,20 @@ public class Player : MonoBehaviour {
 	private Rigidbody rb;
 	private Animator animator;
 
+	public void Die() {
+		StartCoroutine(DieCoroutine());
+	}
+
+	private IEnumerator DieCoroutine() {
+		state = EPlayerState.Dead;
+		rb.velocity = Vector3.zero;
+		yield return new WaitForSeconds(1f);
+		animator.ResetTrigger("Revive");
+		animator.SetTrigger("Die");
+		yield return new WaitForSeconds(5f);
+		UIManager.Instance.Lose();
+	}
+
 	public void Win() {
 		TransitToWon();
 	}
@@ -27,6 +42,7 @@ public class Player : MonoBehaviour {
 	public void Restart() {
 		transform.position = startPosition.position;
 		transform.rotation = Quaternion.identity;
+		animator.SetTrigger("Revive");
 		TransitToIdle();
 	}
 
@@ -44,6 +60,7 @@ public class Player : MonoBehaviour {
 				TickWalking();
 				break;
 			case EPlayerState.Won:
+			case EPlayerState.Dead:
 				return;
 		}
 
@@ -60,7 +77,6 @@ public class Player : MonoBehaviour {
 
 	private void TickIdle() {
 		rb.velocity = Vector3.zero;
-		state = EPlayerState.Idle;
 	}
 
 	private void TickWalking() {
@@ -87,7 +103,6 @@ public class Player : MonoBehaviour {
 		state = EPlayerState.Walking;
 		animator.ResetTrigger("Stop");
 		animator.SetTrigger("Run");
-
 	}
 
 	private void TransitToIdle() {
