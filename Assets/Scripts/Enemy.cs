@@ -29,6 +29,14 @@ public class Enemy : MonoBehaviour {
 		patrolCoroutine = StartCoroutine(PatrolCoroutine());
 	}
 
+	private void OnEnable() {
+		EventManager.StartListening(BVWEvent.ResetGame, Reset);
+	}
+
+	private void OnDisable() {
+		EventManager.StopListening(BVWEvent.ResetGame, Reset);
+	}
+
 	private void Awake() {
 		rb = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
@@ -83,7 +91,7 @@ public class Enemy : MonoBehaviour {
 			rb.velocity = rb.velocity.normalized * maxSpeed;
 		}
 
-		transform.LookAt(Vector3.Lerp(transform.position + transform.forward, transform.position + rb.velocity, 0.1f));
+		transform.LookAt(Vector3.Slerp(transform.position + transform.forward, transform.position + rb.velocity, 0.1f));
 		Debug.DrawLine(transform.position, transform.position + transform.forward, Color.blue);
 		Debug.DrawLine(transform.position, transform.position + rb.velocity, Color.white);
 	}

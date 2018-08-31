@@ -31,9 +31,6 @@ public class UIManager : MonoBehaviour {
 	public void Restart() {
 		winPanel.SetActive(false);
 		losePanel.SetActive(false);
-		Enemy[] enemies = FindObjectsOfType<Enemy>();
-		foreach (Enemy enemy in enemies) {
-			enemy.Reset();
-		}
+		EventManager.TriggerEvent(BVWEvent.ResetGame);
 	}
 }

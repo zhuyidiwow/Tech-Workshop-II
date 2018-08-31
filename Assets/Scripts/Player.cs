@@ -65,6 +65,11 @@ public class Player : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonDown(1)) {
+
+			float a = 1;
+			float b = 3;
+			float c = a + b;
+			
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
             Physics.Raycast(ray, out hit, 30f);

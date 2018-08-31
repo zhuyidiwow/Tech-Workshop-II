@@ -865,7 +865,7 @@ GameObject:
   m_Layer: 0
   m_Name: Destination
   m_TagString: Untagged
-  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1189,7 +1189,7 @@ GameObject:
   m_Layer: 0
   m_Name: Patrol Point (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1294,7 +1294,7 @@ GameObject:
   m_Layer: 0
   m_Name: Patrol Point (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1531,6 +1531,10 @@ Prefab:
     - target: {fileID: 4994551899337044, guid: 0c8ad6e5de1b650429d64b4855af2075, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895846763503354, guid: 0c8ad6e5de1b650429d64b4855af2075, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c8ad6e5de1b650429d64b4855af2075, type: 2}
@@ -2703,7 +2707,7 @@ GameObject:
   m_Layer: 0
   m_Name: Starting Point
   m_TagString: Untagged
-  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
